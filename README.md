@@ -210,4 +210,3 @@ Exemplo:
 A tabela gym está sendo relacionada referenciando seu campo "id" da tabela propria "Gym" no campo criado "gyn_id" no "Chekin". Depois que definimos a relação é criada um campo nas duas tabelas que vai ser a coluna que contem essa relação, no caso na tabela 
 - Gym: 'chekIns Chekin[] -> chekIns é uma coluna que contem uma lista de chekIns'
 - Chekin: 'gyn_id String -> é o id de qual Gym ele pertence'
-
