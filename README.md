@@ -124,8 +124,90 @@ Com o docker inicializado temos nosso banco de dados rodando, para testar podemo
     npx prisma migrate dev 
     ```
 
-E entãop para ver o bd acessar um editor de banco ex: Beekeper/DBever ou com o prisma rodar esse comando:
+E então para visualizar o bd acessar um editor de banco ex: Beekeper/DBever ou com o prisma rodar esse comando:
 - ```powershell
     npx prisma studio   
     ```
 ## Docker compose
+
+Docker compose é uma ferramenta do docker para deixar claro as açoes que o docker deve seguir para subir o container.
+Você configura o docker e o que ele deve fazer.
+
+exemplo de um arquivo docker-compose.yml - o arquivo .yml precisa ter uma identação expecifica
+```docker
+    version: '3'
+
+    services:
+    api-solid-pg:
+        image: bitnami/postgresql
+        ports:
+        - 5432:5432
+        environment:
+        - POSTGRESQL_USERNAME=docker
+        - POSTGRESQL_PASSWORD=docker
+        - POSTGRESQL_DATABASE=apisolid
+
+```
+
+aqui é configurado um serviço "container" **chamado api-solid-pg** pegando a imagem: **bitnami/postgresql** e setando as demais variaveis:
+- ports -> porta que o docker escuta e disponibiliza
+- variaveis de ambiente, nesse caso configuramos para o ambiente de um banco "postgres"
+
+#  Prisma criação de tabelas e relacionamento
+
+No arquivo de schemas do prisma vamos configurar as tabelas e colunas de nosso banco de dados, para criar uma nova tabela utilizamos o '**model** "nome da tabela"{"**colunas**   *tipo da coluna*"}'
+### Criação de tabela
+- Exemplo:
+    - ```prisma 
+        model Exemple{
+        "colunas"
+        }
+
+        ```
+
+### Criação de coluna
+Colunas com prismas são de facil adição, colocamos o "nome" "tipo" 'opções': a baixo vamos criar um **id** tipo string que tem um valod default = uuid e outra coluna description com o tipo String
+
+- Exemlpo:
+    - ```prisma 
+        model Exemple{
+        id      String @id @default(uuid())
+        description String
+        }
+
+        ```
+
+### Criação de relacionamento
+Criar relacionamento entre tabelas pode ser facil caso você tenha configurado o eslint para verificar o prisma, para isso se você tiver o eslint já configurado basta adicionar esse json nas configurações de usuario:
+
+```JSON 
+"[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": true
+    }
+``` 
+
+Para relacionar as colunas então basta colocar um "nome" para esse relacionamento e a "tabela" que sera relacionada: **'gym    Gym'** o eslint configura automaticamente.
+
+Exemplo:
+- ```prisma
+    model Gym {
+        id          String   @id @default(uuid())
+
+        checkIns    Chekin[]
+
+        @@map("gyms")
+    }
+
+    model Chekin {
+    id           String    @id @default(uuid())
+    gym    Gym    @relation(fields: [gyn_id], references: [id])
+    gyn_id String
+
+    @@map("check_ins")
+    }
+    ```
+A tabela gym está sendo relacionada referenciando seu campo "id" da tabela propria "Gym" no campo criado "gyn_id" no "Chekin". Depois que definimos a relação é criada um campo nas duas tabelas que vai ser a coluna que contem essa relação, no caso na tabela 
+- Gym: 'chekIns Chekin[] -> chekIns é uma coluna que contem uma lista de chekIns'
+- Chekin: 'gyn_id String -> é o id de qual Gym ele pertence'
+
