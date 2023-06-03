@@ -192,11 +192,11 @@ Para relacionar as colunas então basta colocar um "nome" para esse relacionamen
 Exemplo:
 - ```prisma
     model Gym {
-        id          String   @id @default(uuid())
+    id          String   @id @default(uuid())
 
-        checkIns    Chekin[]
+    checkIns    Chekin[]
 
-        @@map("gyms")
+    @@map("gyms")
     }
 
     model Chekin {
@@ -210,3 +210,15 @@ Exemplo:
 A tabela gym está sendo relacionada referenciando seu campo "id" da tabela propria "Gym" no campo criado "gyn_id" no "Chekin". Depois que definimos a relação é criada um campo nas duas tabelas que vai ser a coluna que contem essa relação, no caso na tabela 
 - Gym: 'chekIns Chekin[] -> chekIns é uma coluna que contem uma lista de chekIns'
 - Chekin: 'gyn_id String -> é o id de qual Gym ele pertence'
+
+
+### Hash De senha:
+
+```sh
+    npm i -D bcryptjs
+    npm i -D @types/bcryptjs
+``` 
+
+rever a parte de HASH
+Separação em arquivos para serviço register que realiza o cadastro do usuario
+deixar o arquivo do controller passando os dados tratos para esse serviço register, e apenas retornando um sucesso ou erro
