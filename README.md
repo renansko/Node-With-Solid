@@ -207,18 +207,39 @@ Exemplo:
     @@map("check_ins")
     }
     ```
+
 A tabela gym está sendo relacionada referenciando seu campo "id" da tabela propria "Gym" no campo criado "gyn_id" no "Chekin". Depois que definimos a relação é criada um campo nas duas tabelas que vai ser a coluna que contem essa relação, no caso na tabela 
+
 - Gym: 'chekIns Chekin[] -> chekIns é uma coluna que contem uma lista de chekIns'
 - Chekin: 'gyn_id String -> é o id de qual Gym ele pertence'
 
-
 ### Hash De senha:
 
+Biblioteca para hash:
 ```sh
     npm i -D bcryptjs
     npm i -D @types/bcryptjs
-``` 
+```
 
-rever a parte de HASH
-Separação em arquivos para serviço register que realiza o cadastro do usuario
-deixar o arquivo do controller passando os dados tratos para esse serviço register, e apenas retornando um sucesso ou erro
+### Design Patterns
+Separação de funcionalidades da API, é separado nos arquivos algumas funções na pasta
+
+"controllers" vai ser responsavel pela entrada de dados e o retorno dela. \
+"Services/Use-Case" Manipulação desses dados da forma que for necessaria.
+
+- Pastas Controller
+    - ele vai receber os dados idependende de como chega, e controlar para aonde será enviado esses dados, dependendo de qual controller ele é, depois retorna qual foi o resultado se deu um erro ou sucesso
+    - Controller pode pegar uma requisição HTTP ou informações de uma mensageria enviar para use-case/Services tratar esses dados, e então retornar seu resultado.
+
+- Pastas use-case
+    - casos de uso da aplicação, por exemplo o cadastro de um usuario, verificando e tratando os dados da maneira requisitada no projeto.
+    - registrar algum registro e retornar se esse registro estava com erro ou retornar um sucesso.
+
+### Repository Pattern  
+
+*-* Pasta repositoriers
+- todo codigo de comunicação com o "banco de dados" pode ser separado assim facilitando a mudança, aonde você salve e como salva os dados em um tipo de banco.
+
+### SOLID
+
+### D - Dependency inversion Principle
