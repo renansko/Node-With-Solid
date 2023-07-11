@@ -243,3 +243,36 @@ Separação de funcionalidades da API, é separado nos arquivos algumas funçõe
 ### SOLID
 
 ### D - Dependency inversion Principle
+
+# Testes
+
+### Vitest
+
+Para essa aplicação sera utilizado a biblioteca "vitest" para realizar os testes de nossas aplicações.
+
+### Instalando vitest:
+```Powershell
+npm i vitest vite-tsconfig-paths -D
+```
+
+ao intalar o vitest podemos verificar se está ok criando um arquivo, "register.spec.ts" com o seguinte conteudo dentro dele:
+
+```TS 
+import { expect, test } from 'vitest'
+
+test('check if it works', () => {
+  expect(2 + 2).toBe(4)
+})
+
+```
+
+### Vitest Covarage
+
+```JSON 
+"test:coverage": "vitest run --coverage"
+```
+
+### Vitest UI
+```PowerShell
+npm i -D @vitest/ui
+```

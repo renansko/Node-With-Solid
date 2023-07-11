@@ -6,3 +6,6 @@ build
 
 # Variaveis de ambiente
 .env
+
+# Testes Coverage
+coverage

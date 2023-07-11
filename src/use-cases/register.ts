@@ -1,11 +1,16 @@
 import { UsersRepository } from '@/repositories/users-repositories'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistError } from './erros/users-already-exists-error'
+import { User } from '@prisma/client'
 
 interface registerUseCaseParams {
   name: string
   email: string
   password: string
+}
+
+interface registerUseCaseResponse {
+  user: User
 }
 // SOLID
 
@@ -14,7 +19,11 @@ interface registerUseCaseParams {
 export class RegisterUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute({ name, email, password }: registerUseCaseParams) {
+  async execute({
+    name,
+    email,
+    password,
+  }: registerUseCaseParams): Promise<registerUseCaseResponse> {
     // 6 numero de rounds
 
     const password_hash = await hash(password, 6)
@@ -26,10 +35,14 @@ export class RegisterUseCase {
 
     // const prismaUsersRepository = new PrismaUsersRepository()
 
-    await this.usersRepository.create({
+    const user = await this.usersRepository.create({
       name,
       email,
       password_hash,
     })
+
+    return {
+      user,
+    }
   }
 }
