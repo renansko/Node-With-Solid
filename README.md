@@ -4,8 +4,8 @@ GymPass style app.
 
 ## RFs (Requisitos funcionais)
 
-- [ ] Deve ser possível se cadastrar;
-- [ ] Deve ser possível se autenticar;
+- [x] Deve ser possível se cadastrar;
+- [x] Deve ser possível se autenticar;
 - [ ] Deve ser possível obter o perfil de um usuário logado;
 - [ ] Deve ser possível obter o número de check-ins realizados pelo usuário logado;
 - [ ] Deve ser possível o usuário obter o seu histórico de check-ins;
@@ -17,7 +17,7 @@ GymPass style app.
 
 ## RNs (Regras de negócio)
 
-- [ ] O usuário não deve poder se cadastrar com um e-mail duplicado;
+- [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
 - [ ] O usuário não pode fazer 2 check-ins no mesmo dia;
 - [ ] O usuário não pode fazer check-in se não estiver perto (100m) da academia;
 - [ ] O check-in só pode ser validado até 20 minutos após ser criado;
@@ -26,7 +26,7 @@ GymPass style app.
 
 ## RNFs (Requisitos não-funcionais)
 
-- [ ] A senha do usuário precisa estar criptografada;
+- [x] A senha do usuário precisa estar criptografada;
 - [ ] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
 - [ ] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token);
@@ -72,9 +72,10 @@ scripts:
 
 **typescript**
 - tsconfig.json -> configuração para o typescript
-- ```JSON "baseUrl": "./",                                     /* Specify the base directory to resolve non-relative module names. */
+- ```JSON 
+    "baseUrl": "./", /* Specify the base directory to resolve non-relative module names. */
     
-    #Conversão para node, aceita a versão 2020
+    # Conversão para node, aceita a versão 2020
     "target": "ES2020",  
 
     # essa configuração server para criar alias do caminho de arquivos
@@ -244,6 +245,12 @@ Separação de funcionalidades da API, é separado nos arquivos algumas funçõe
 
 ### D - Dependency inversion Principle
 
+Utilizamos essa inversão de dependencias para testes também, quando separamos a instancia do repositorio do Prisma para outro arquivo, podemos utilizar qualquer outro tipo de repositorio quando instanciamos o registerUseCase.
+
+Por exemplo; no cenario de testes existe um patern chamado 'InMemoryTest DataBase', que nada mais é que um fake repositorio feito para simular um banco de dados em memoria.
+
+Do mesmo jeito que a clase do prisma repositories utiliza a interface do userRepository ela também utilizara, porem invez de usar o prisma que é uma ORM ele vai usar apenas a **'Array[]** do javaScript
+
 # Testes
 
 ### Vitest
@@ -255,24 +262,68 @@ Para essa aplicação sera utilizado a biblioteca "vitest" para realizar os test
 npm i vitest vite-tsconfig-paths -D
 ```
 
+criamos um arquivo chamado 'vite.config.ts' e colocamos o seguinte conteudo nele:
+
+```TS
+    import { defineConfig } from 'vitest/config'
+    import tsconfigPaths from 'vite-tsconfig-paths'
+
+    export default defineConfig({
+    plugins: [tsconfigPaths()],
+    })
+```
+
 ao intalar o vitest podemos verificar se está ok criando um arquivo, "register.spec.ts" com o seguinte conteudo dentro dele:
 
 ```TS 
-import { expect, test } from 'vitest'
+    import { expect, test } from 'vitest'
 
-test('check if it works', () => {
-  expect(2 + 2).toBe(4)
-})
+    test('check if it works', () => {
+    expect(2 + 2).toBe(4)
+    })
+```
+
+**Começando os testes**
+Criar uma pasta ou arquivo aonde desejar, importante estar organizado no contexto de teste que você fara.
+
+Aqui criamos nosso arquivo 'spec' na pasta use-cases, aonde iremos testar nosso caso de uso register, nele vamos verificar todas as situações possiveis ("Todas as linhas");
+
+Vamos criar um contexto de teste, 'describe' ele descreve qual caso vai ser testado.
+após isso vamos criar nossos cenarios de testes com o 'it'
+
+dentro do it vamos simular o cenario que queremos por exemplo a criação de um registro:
+
+instanciamos nosso repositorio para criação do registro.
+instaciamos nosso use-case de registro
+criamos o registro,
+por fim verificamos o registro.
+
+```TS Teste unitario registro
+    const userRepositoryInMemory = new InMemoryUsersRepository()
+    const registerUseCase = new RegisterUseCase(userRepositoryInMemory)
+
+    const { user } = await registerUseCase.execute({
+        name: 'Joe Doe',
+        email: 'JoeDoe@gmail.com',
+        password: '123456',
+    })
+
+    expect(user.id).toEqual(expect.any(String))
 
 ```
+para a validação do teste utilizamos o 'expect'("Alguma coisa").'demais verificações'
+
+no cenario a cima estamos esperando que o "id" gerado no registro de usuario seja igual a qualquer tipo de String.
 
 ### Vitest Covarage
 
 ```JSON 
-"test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage"
 ```
 
 ### Vitest UI
 ```PowerShell
-npm i -D @vitest/ui
+    npm i -D @vitest/ui
 ```
+
+### Factory Patern
