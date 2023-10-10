@@ -8,7 +8,7 @@ interface GetUserMetricsHistoryUseCaseResponse {
   checkIsCount: number
 }
 
-export class GetUserHistoryUseCase {
+export class GetUserMetricsUseCase {
   constructor(private checkInRepository: CheckInRepository) {}
 
   async execute({
