@@ -1,4 +1,4 @@
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/renansko/d1f9a5938ef6ba5bd3694b8176caab66/raw/Node-With-Solid__pull_##.json)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/renansko/d1f9a5938ef6ba5bd3694b8176caab66/raw/Node-With-Solid__heads_master.json)
 
 # App
 
