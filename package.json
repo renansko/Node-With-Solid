@@ -15,7 +15,8 @@
     "test:e2e": "vitest run --dir src/http",
     "test:e2e:watch": "vitest --dir src/http",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "test-ci": "vitest run --coverage.enabled --coverage.reporter='text-summary'"
   },
   "keywords": [],
   "author": "",
@@ -41,6 +42,7 @@
     "@fastify/jwt": "7.2.1",
     "@prisma/client": "4.15.0",
     "bcryptjs": "2.4.3",
+    "coverage-badge-creator": "1.0.18",
     "dayjs": "1.11.9",
     "dotenv": "16.1.2",
     "fastify": "4.17.0",
