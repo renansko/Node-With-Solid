@@ -5,7 +5,7 @@ interface GetUserMetricsHistoryUseCaseRequest {
 }
 
 interface GetUserMetricsHistoryUseCaseResponse {
-  checkIsCount: number
+  checkInsCount: number
 }
 
 export class GetUserMetricsUseCase {
@@ -14,10 +14,10 @@ export class GetUserMetricsUseCase {
   async execute({
     userId,
   }: GetUserMetricsHistoryUseCaseRequest): Promise<GetUserMetricsHistoryUseCaseResponse> {
-    const checkIsCount = await this.checkInRepository.countByUserId(userId)
+    const checkInsCount = await this.checkInRepository.countByUserId(userId)
 
     return {
-      checkIsCount,
+      checkInsCount,
     }
   }
 }
