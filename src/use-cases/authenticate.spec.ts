@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/inMemory/in-memory-users-repository'
 import { AuthenticateUseCase } from './authenticate'
 import { hash } from 'bcryptjs'
-import { InvalidCredentialsError } from './erros/invalid-credentials-error'
+import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 
 // Patern 'InMemoryTest DataBase'
 

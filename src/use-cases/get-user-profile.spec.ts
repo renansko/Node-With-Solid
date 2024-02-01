@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/inMemory/in-memory-users-repository'
 import { hash } from 'bcryptjs'
 import { GetUserProfileUseCase } from './get-user-profile'
-import { ResourcesNotFoundError } from './erros/resources-not-found-error'
+import { ResourcesNotFoundError } from './errors/resources-not-found-error'
 
 // Patern 'InMemoryTest DataBase'
 

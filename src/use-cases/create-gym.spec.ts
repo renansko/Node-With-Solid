@@ -22,5 +22,6 @@ describe('Register Use case', () => {
     })
 
     expect(gym.id).toEqual(expect.any(String))
+    expect(gym).toEqual([expect.objectContaining({ title: 'JavaScrit Gym' })])
   })
 })

@@ -8,7 +8,7 @@ import { verifyUserRole } from '@/http/middlewares/verift-user-role'
 
 export async function gymsRoutes(app: FastifyInstance) {
   // MVC - Model - view - controller
-  // controller lida com a entrada de dados com uma função http
+  // a de dados com uma função http
 
   app.addHook('onRequest', verifyJwt)
 

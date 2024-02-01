@@ -332,6 +332,7 @@ no cenario a cima estamos esperando que o "id" gerado no registro de usuario sej
 
 # TDD -> Test driven development
 
+npm i vitest vite-tsconfig-paths -D
 
 NPM run all
 Conversão dos scripts package.json/ Rodar comandos a +

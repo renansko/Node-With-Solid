@@ -1,8 +1,8 @@
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest'
 import { InMemoryCheckInRepository } from '@/repositories/inMemory/in-memory-check-in-repository'
 import { ValidateCheckInUseCase } from './validate-check-in'
-import { ResourcesNotFoundError } from './erros/resources-not-found-error'
-import { LateCheckInValidation } from './erros/late-check-in-validation-error'
+import { ResourcesNotFoundError } from './errors/resources-not-found-error'
+import { LateCheckInValidation } from './errors/late-check-in-validation-error'
 
 // Patern 'InMemoryTest DataBase'
 

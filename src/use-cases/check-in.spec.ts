@@ -3,8 +3,8 @@ import { InMemoryCheckInRepository } from '@/repositories/inMemory/in-memory-che
 import { CheckInUseCase } from './checkin'
 import { InMemoryGymRepository } from '@/repositories/inMemory/in-memory-gym-repository'
 import { Prisma } from '@prisma/client'
-import { MaxNumberOfCheckInsError } from './erros/max-number-of-check-ins-error'
-import { MaxDistanceError } from './erros/max-distance-error'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error'
+import { MaxDistanceError } from './errors/max-distance-error'
 
 // Patern 'InMemoryTest DataBase'
 
